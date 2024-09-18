@@ -62,6 +62,16 @@ description:{job_description}
 I want the response in one single string having the structure
 {{"Job Description Match":"%","Missing Keywords":"","Candidate Summary":"","Experience":""}}
 """
+suggestion_prompt = """
+As an experienced Applicant Tracking System (ATS) analyst, 
+with deep expertise in resume optimization for better alignment with job descriptions, 
+your role is to provide actionable suggestions to help candidates improve their resumes.
+You will thoroughly review the provided resume in comparison with the job description and 
+identify key areas for improvement. Focus on enhancing the match percentage by recommending
+changes in experience details, skills, and keywords, while ensuring the resume is tailored to the job description.
+resume: {text}
+description: {job_description}
+"""
 
 # Streamlit app
 # Initialize Streamlit app
@@ -69,8 +79,11 @@ st.title("Intelligent ATS-Enhance Your Resume ATS")
 st.markdown('<style>h1{color: orange; text-align: center;}</style>', unsafe_allow_html=True)
 job_description = st.text_area("Paste the Job Description", height=300)
 uploaded_file = st.file_uploader("Upload Your Resume", type=["pdf", "docx"], help="Please upload a PDF or DOCX file")
-
 submit_button = st.button("Submit")
+
+# Initialize session state for controlling button press behavior
+if 'seek_suggestions' not in st.session_state:
+    st.session_state.seek_suggestions = False
 
 if submit_button:
     if uploaded_file is not None:
@@ -108,3 +121,17 @@ if submit_button:
             st.markdown("### **Final Result:** Move forward with hiring")
         else:
             st.markdown("### **Final Result:** Not a Match")
+
+        improve_button = st.button("Seek Suggestions", key='suggestion')
+
+        # Check if the "Seek Suggestions" button is pressed
+        if improve_button or st.session_state.seek_suggestions:
+            st.session_state.seek_suggestions = True
+            # Generate suggestions based on the resume and job description
+            improvision_text = generate_response_from_gemini(suggestion_prompt.format(text=resume_text, job_description=job_description))
+
+            # Display the suggestions in a formatted markdown
+            st.markdown(f"""
+            **Here are some suggestions for improvement:**  
+            {improvision_text}
+            """)
