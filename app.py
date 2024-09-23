@@ -5,6 +5,15 @@ import docx2txt
 import PyPDF2 as pdf
 from dotenv import load_dotenv
 
+# removing the default navbar
+hide_streamlit_style = """
+            <style>
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            </style>
+            """
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+
 # Load environment variables from a .env file
 load_dotenv()
 
