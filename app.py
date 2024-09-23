@@ -74,13 +74,66 @@ description: {job_description}
 """
 
 # Streamlit app
-# Initialize Streamlit app
-st.title("Intelligent ATS-Enhance Your Resume ATS")
-st.markdown('<style>h1{color: orange; text-align: center;}</style>', unsafe_allow_html=True)
-job_description = st.text_area("Paste the Job Description", height=300)
-uploaded_file = st.file_uploader("Upload Your Resume", type=["pdf", "docx"], help="Please upload a PDF or DOCX file")
-submit_button = st.button("Submit")
 
+# adding animation in the background
+st.markdown('''
+<style>
+    .navbar {
+        position: sticky;
+        top: 0;
+        background-color: white;
+        padding: 10px;
+        display: flex;
+        justify-content: space-around;
+        width: 100%; /* Full width */
+        z-index: 1000;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar a {
+        text-decoration: none;
+        color: #0000FF;
+        font-weight: bold;
+        padding: 10px 15px;
+        font-size: 20px;
+    }
+
+    h1 {color: #ff0000; text-align: center;}
+    .center-text {text-align: center; font-size: 20px; margin-bottom: 10px;}
+    .textarea {width: 100%; height: 300px;}
+</style>
+''', unsafe_allow_html=True)
+
+# Navbar HTML
+st.markdown('''
+<div class="navbar">
+    <a href="#job-description">Home Page</a>
+    <a href="#upload-resume">How it works</a>
+    <a href="#submit">How to use</a>
+</div>
+''', unsafe_allow_html=True)
+
+# Initialize Streamlit app
+st.title("Tailor Your Resume With AI based on Job Description")
+st.markdown('''
+<style>
+    h1 {color: #ff0000; text-align: center;}
+    .center-button {display: flex; justify-content: center align-item:center color:blue;}
+    .center-text {text-align: center; font-size: 20px; margin-bottom: 10px;}
+    .textarea {width: 100%; height: 300px;}
+</style>
+''', unsafe_allow_html=True)
+# Centered Job Description Text
+st.markdown('<div class="center-text">Paste the Job Description</div>', unsafe_allow_html=True)
+job_description = st.text_area("", height=300, key="job_description", help="Paste your job description here", max_chars=5000, label_visibility="collapsed")
+
+st.markdown('<div class="center-text">Upload Your Resume</div>', unsafe_allow_html=True)
+
+uploaded_file = st.file_uploader("Upload Here: ", type=["pdf", "docx"], help="Please upload a PDF or DOCX file")
+# Centered submit button
+st.markdown('<div class="center-button">', unsafe_allow_html=True)
+submit_button = st.button("Submit")
+st.markdown('</div>', unsafe_allow_html=True)
 # Initialize session state for controlling button press behavior
 if 'seek_suggestions' not in st.session_state:
     st.session_state.seek_suggestions = False
@@ -115,6 +168,8 @@ if submit_button:
         
         **Experience:** {experience}
         """)
+
+        
 
         # Display message based on Job Description Match percentage
         if match_percentage >= 80:
