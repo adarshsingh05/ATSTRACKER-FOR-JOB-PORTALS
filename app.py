@@ -5,6 +5,14 @@ import docx2txt
 import PyPDF2 as pdf
 from dotenv import load_dotenv
 
+hide_streamlit_style = """
+            <style>
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            header {visibility: hidden;}
+            </style>
+            """
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 # removing the default navbar
 hide_streamlit_style = """
             <style>
@@ -87,38 +95,64 @@ description: {job_description}
 # adding animation in the background
 st.markdown('''
 <style>
+    /* Fixed Navbar */
     .navbar {
-        position: sticky;
+        position: fixed;
         top: 0;
-        background-color: white;
+        left: 0;
+        right: 0;
+        background-color: #1a202c;
         padding: 10px;
         display: flex;
-        justify-content: space-around;
-        width: 100%; /* Full width */
-        z-index: 1000;
+        
+        width: 100%;
+        z-index: 1000; /* Ensures it's above other content */
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            font-size: 30px;
+            display: flex;
+        align-items: center; /* Align items vertically */
+        justify-content: flex-start; /* Space out logo and text */
+        background-color: #1a202c; /* Background color of the navbar */
+        padding: 10px 20px; /* Padding around the navbar */
+    }
+            .navbar img {
+        height: 50px; /* Set the height of the logo */
+        margin-right: 460px; /* Space between logo and title */
     }
 
+    /* Navbar Links */
     .navbar a {
         text-decoration: none;
-        color: #0000FF;
+        color: white;
         font-weight: bold;
         padding: 10px 15px;
-        font-size: 20px;
+        font-size: 40px;
+            
     }
 
-    h1 {color: #ff0000; text-align: center;}
-    .center-text {text-align: center; font-size: 20px; margin-bottom: 10px;}
-    .textarea {width: 100%; height: 300px;}
+    /* Margin for content to not overlap the navbar */
+    .content {
+        margin-top: 80px;
+    }
+
+    h1 {
+        color: #ff0000; 
+        text-align: center;
+    }
+
+    .center-text {
+        text-align: center; 
+        font-size: 20px; 
+        margin-bottom: 10px;
+    }
 </style>
 ''', unsafe_allow_html=True)
 
 # Navbar HTML
 st.markdown('''
 <div class="navbar">
-    <a href="#job-description">Home Page</a>
-    <a href="#upload-resume">How it works</a>
-    <a href="#submit">How to use</a>
+    <img src= "https://raw.githubusercontent.com/adarshsingh05/Freelancing-portal/refs/heads/main/OneDrive/Desktop/Job%20Portal/public/logo.png" height="55"></img>
+    FitMyResume Powered By Hirrd
 </div>
 ''', unsafe_allow_html=True)
 
