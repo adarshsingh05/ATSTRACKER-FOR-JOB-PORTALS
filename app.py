@@ -152,7 +152,7 @@ st.markdown('''
 st.markdown('''
 <div class="navbar">
     <img src= "https://raw.githubusercontent.com/adarshsingh05/Freelancing-portal/refs/heads/main/OneDrive/Desktop/Job%20Portal/public/logo.png" height="55"></img>
-    FitMyResume Powered By Hirrd
+    FitMyResume Powered By Vjobs
 </div>
 ''', unsafe_allow_html=True)
 
